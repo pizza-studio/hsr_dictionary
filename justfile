@@ -4,7 +4,7 @@ dockerbuild: sqlxprepare test
     docker build -t daicanglong/hsr-dictionary-backend:latest . --platform linux/arm64
 
 dockerpush:
-    docker push daicanglong/genshin-dictionary-backend:latest
+    docker push daicanglong/hsr-dictionary-backend:latest
 
 dockerbuildandpush: dockerbuild dockerpush
 
