@@ -5,7 +5,17 @@ use sqlx::postgres::{PgHasArrayType, PgTypeInfo};
 use strum::EnumIter;
 
 #[derive(
-    Debug, sqlx::Type, PartialEq, Eq, Clone, Copy, EnumIter, strum::Display, Serialize, Hash, Deserialize
+    Debug,
+    sqlx::Type,
+    PartialEq,
+    Eq,
+    Clone,
+    Copy,
+    EnumIter,
+    strum::Display,
+    Serialize,
+    Hash,
+    Deserialize,
 )]
 #[sqlx(type_name = "language", rename_all = "lowercase")]
 pub enum Language {
