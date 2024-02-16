@@ -4,10 +4,7 @@ use sqlx::PgPool;
 
 use tower_http::{
     cors::CorsLayer,
-    trace::{
-        DefaultMakeSpan, DefaultOnFailure, DefaultOnResponse,
-        TraceLayer,
-    },
+    trace::{DefaultMakeSpan, DefaultOnFailure, DefaultOnResponse, TraceLayer},
     LatencyUnit,
 };
 use tracing::{Level, Span};
@@ -23,8 +20,9 @@ pub fn app(db: PgPool) -> Router {
             TraceLayer::new_for_http()
                 .make_span_with(DefaultMakeSpan::new())
                 .on_request(|request: &Request<Body>, _span: &Span| {
-                    let uri = urlencoding::decode(request.uri().path())
-                        .unwrap_or(request.uri().path().into());
+                    let uri = request.uri().to_string();
+                    let uri = urlencoding::decode(&uri)
+                    .unwrap_or((&uri).into());
                     tracing::info!("started {} {}", request.method(), uri)
                 })
                 .on_response(
