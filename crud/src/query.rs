@@ -39,7 +39,7 @@ pub async fn query_dictionary(
                 FROM t2
             ),
             t4 AS (
-                SELECT COUNT(*) AS "total_page"
+                SELECT (COUNT(*) / $2) + 1 AS "total_page"
                 FROM t1
             ),
             t5 AS (
@@ -90,5 +90,13 @@ mod test {
             }],
         };
         assert_eq!(assertion, result);
+    }
+
+    #[sqlx::test(migrator = "crate::MIGRATOR")]
+    async fn test_query_total_page(db: PgPool) {
+        insert_test_data(&db).await;
+        let result = query_dictionary("param", 2, Some(1), &db).await.unwrap();
+        let expected_total_page = 3;
+        assert_eq!(expected_total_page, result.total_page);
     }
 }
