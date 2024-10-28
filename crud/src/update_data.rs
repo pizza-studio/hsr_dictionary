@@ -18,7 +18,7 @@ lazy_static! {
         Language::iter()
             .map(|lang| {
                 let url = format!(
-                    "https://github.com/Dimbreath/StarRailData/raw/master/TextMap/TextMap{}.json",
+                    "https://gitlab.com/Dimbreath/turnbasedgamedata/-/raw/main/TextMap/TextMap{}.json",
                     lang.to_string().to_uppercase()
                 );
                 info!("Data url for {} is: {}", lang.to_string(), url);
@@ -146,9 +146,9 @@ mod test {
             assert_ne!(
                 res.headers()
                     .get("content-length")
-                    .unwrap()
+                    .expect("No content-length header")
                     .to_str()
-                    .unwrap()
+                    .expect("Can't convert to string")
                     .parse::<u64>()
                     .unwrap(),
                 0

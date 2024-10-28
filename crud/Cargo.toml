@@ -35,4 +35,4 @@ indicatif = "0.17"
 
 log = { workspace = true }
 
-tempfile = "3.10"
+tempfile = "3.13"

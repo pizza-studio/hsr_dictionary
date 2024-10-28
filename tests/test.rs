@@ -6,7 +6,7 @@ use hsr_dictionary::app;
 use http_body_util::BodyExt;
 use model::{Language, NestedDictionaryItem, QueryResult};
 use sqlx::PgPool;
-use tower::ServiceExt;
+use tower::util::ServiceExt;
 
 use axum::http::{Request, StatusCode};
 
